@@ -27,7 +27,11 @@ router.get('/:blogid?', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        res.json(await db.blogs.post(req.body.title, req.body.content, req.body.authorid))
+        let result = await db.blogs.post(req.body.title, req.body.content, req.body.authorid)
+        let blogid = result.insertId
+        let tagid = req.body.tagid
+        await db.blogtags.insert(blogid, tagid);
+        res.json(result)
     } catch (e) {
         console.log(e)
         res.sendStatus(500)
@@ -49,6 +53,7 @@ router.put('/:blogid', async (req, res) => {
 router.delete('/:blogid', async (req, res) => {
     let blogid = req.params.blogid
     try {
+        await db.blogtags.destroy(blogid);
         res.json(await db.blogs.remove(blogid))
     } catch (e) {
         console.log(e)

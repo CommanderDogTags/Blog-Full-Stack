@@ -7,6 +7,6 @@ export interface IBlog {
 }
 
 export interface IBlogTags {
-	id: number;
-	name: string;
+	id: number,
+	name: string
 }

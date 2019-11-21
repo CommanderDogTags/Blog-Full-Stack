@@ -27,7 +27,7 @@ const Edit: React.FC<EditProps> = props => {
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
-            let response = await json(`/api/blogs/${props.match.params.id}`, 'DELETE', {title, content});
+            let response = await json(`/api/blogs/${props.match.params.id}`, 'DELETE');
             console.log(response);
             props.history.push('/');
         } catch (error) {
